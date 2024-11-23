@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export function ToDoList() {
-  let [todos, setTodos] = useState(["Sample Task"]);
+  let [todos, setTodos] = useState([{ task: "Sample Task", id: uuidv4 }]);
   let [newTodos, setNewTodos] = useState("");
 
   let addNewTask = () => {
-    setTodos([...todos, newTodos]);
+    setTodos([...todos, { task: newTodos, id: uuidv4 }]);
     setNewTodos("");
   };
 
@@ -38,8 +39,8 @@ export function ToDoList() {
       <h4 className="text-xl font-semibold mt-4">Tasks To Do</h4>
       <ul className="list-disc list-inside mt-2">
         {todos.map((todo, index) => (
-          <li key={index} className="mt-1">
-            {todo}
+          <li key={todo.id} className="mt-1">
+            {todo.task}
           </li>
         ))}
       </ul>

@@ -31,6 +31,20 @@ export function ToDoList() {
     );
   };
 
+  let upperCaseOne = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id == id) {
+          return {
+            ...todo,
+            task: todo.task.toUpperCase(),
+          };
+        } else {
+          return todo;
+        }
+      })
+    );
+  };
   return (
     <div className="min-h-screen bg-gray-900 text-white p-5">
       <p className="text-2xl font-bold">ToDoList</p>
@@ -59,10 +73,17 @@ export function ToDoList() {
           <li key={todo.id} className="mt-1">
             <span>{todo.task}</span> &nbsp; &nbsp; &nbsp;
             <button
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               onClick={() => deleteTodo(todo.id)}
             >
               Delete
+            </button>
+            &nbsp; &nbsp; &nbsp;
+            <button
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+              onClick={() => upperCaseOne(todo.id)}
+            >
+              UpperCase One
             </button>
           </li>
         ))}
@@ -70,7 +91,7 @@ export function ToDoList() {
       <br />
       <br />
       <button
-        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
         onClick={upperCaseAll}
       >
         Uppercase All

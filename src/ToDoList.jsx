@@ -6,8 +6,8 @@ export function ToDoList() {
   let [newTodos, setNewTodos] = useState("");
 
   let addNewTask = () => {
-    setTodos((pervTodos) => {
-      return [...pervTodos, { task: newTodos, id: uuidv4 }];
+    setTodos((prevTodos) => {
+      return [...prevTodos, { task: newTodos, id: uuidv4() }];
     });
     setNewTodos("");
   };
@@ -17,7 +17,18 @@ export function ToDoList() {
   };
 
   let deleteTodo = (id) => {
-    setTodos((pervTodos) => todos.filter((pervTodos) => pervTodos.id != id));
+    setTodos((prevTodos) => todos.filter((prevTodos) => prevTodos.id != id));
+  };
+
+  let upperCaseAll = () => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        return {
+          ...todo,
+          task: todo.task.toUpperCase(),
+        };
+      })
+    );
   };
 
   return (
@@ -56,6 +67,14 @@ export function ToDoList() {
           </li>
         ))}
       </ul>
+      <br />
+      <br />
+      <button
+        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        onClick={upperCaseAll}
+      >
+        Uppercase All
+      </button>
     </div>
   );
 }

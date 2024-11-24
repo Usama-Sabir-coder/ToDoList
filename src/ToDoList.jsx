@@ -6,12 +6,18 @@ export function ToDoList() {
   let [newTodos, setNewTodos] = useState("");
 
   let addNewTask = () => {
-    setTodos([...todos, { task: newTodos, id: uuidv4 }]);
+    setTodos((pervTodos) => {
+      return [...pervTodos, { task: newTodos, id: uuidv4 }];
+    });
     setNewTodos("");
   };
 
   let updateTodoValue = (event) => {
     setNewTodos(event.target.value);
+  };
+
+  let deleteTodo = (id) => {
+    setTodos((pervTodos) => todos.filter((pervTodos) => pervTodos.id != id));
   };
 
   return (
@@ -38,9 +44,15 @@ export function ToDoList() {
       <hr className="border-gray-700" />
       <h4 className="text-xl font-semibold mt-4">Tasks To Do</h4>
       <ul className="list-disc list-inside mt-2">
-        {todos.map((todo, index) => (
+        {todos.map((todo) => (
           <li key={todo.id} className="mt-1">
-            {todo.task}
+            <span>{todo.task}</span> &nbsp; &nbsp; &nbsp;
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => deleteTodo(todo.id)}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
